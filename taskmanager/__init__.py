@@ -6,7 +6,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # In order to use hidden env variables we need to import the env package
 if os.path.exists("env.py"):
-    import env 
+    import env
 
 # we are specifying two app configuration variables that will both come from
 # environment variables in the env.py
