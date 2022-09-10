@@ -6,4 +6,4 @@ from taskmanager.models import Category, Task
 # Creating a view that renders base.html every time the user is in main route
 @app.route("/")
 def home():
-    return render_template("base.html")
+    return render_template("tasks.html")
