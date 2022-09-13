@@ -2,6 +2,8 @@
 # and allow use to use our own imports as well as any standard.
 
 import os
+import re
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # In order to use hidden env variables we need to import the env package
@@ -16,7 +18,11 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 if os.environ.get("DEVELOPMENT") == "True":
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
 else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    uri = os.environ.get("DATABASE_URL")
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
 # Create an instance of imported sqlalchemy class and set to instance of flask app
 db = SQLAlchemy(app)
